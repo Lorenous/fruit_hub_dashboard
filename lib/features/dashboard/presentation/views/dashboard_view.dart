@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub_dashboard/core/widgets/custom_app_bar.dart';
+import 'package:fruit_hub_dashboard/features/dashboard/presentation/widgets/dashboard_view_body.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -6,6 +8,13 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: buildCustomAppBar(
+        context,
+        text: 'Dashboard',
+        showBackButton: false,
+      ),
+      body: const DashboardViewBody(),
+    );
   }
 }
