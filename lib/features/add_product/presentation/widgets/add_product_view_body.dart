@@ -40,14 +40,14 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            const ImagePickerField(),
-            const SizedBox(height: 20),
             ProductFormFields(
               nameController: _nameController,
               descriptionController: _descriptionController,
               priceController: _priceController,
               codeController: _codeController,
             ),
+            const SizedBox(height: 20),
+            const ImagePickerField(),
             const SizedBox(height: 20),
             CustomButton(
               text: 'Add Product',
