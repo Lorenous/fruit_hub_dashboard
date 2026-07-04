@@ -5,13 +5,17 @@ class AddProductInputEntity {
   final String code;
   final String description;
   final String price;
-  final XFile? image;
+  final XFile image;
+  final bool isFeatured;
+  final String? imageUrl;
 
   const AddProductInputEntity({
     required this.name,
     required this.code,
     required this.description,
     required this.price,
-    this.image,
+    required this.image,
+    required this.isFeatured,
+    this.imageUrl,
   });
 }

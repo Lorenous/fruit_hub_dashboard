@@ -8,6 +8,7 @@ class CustomTextField extends StatelessWidget {
     this.keyboardType,
     this.maxLines = 1,
     this.validator,
+    this.onSaved,
   });
 
   final String labelText;
@@ -15,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int maxLines;
   final String? Function(String?)? validator;
+  final void Function(String? newValue)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class CustomTextField extends StatelessWidget {
       keyboardType: keyboardType,
       maxLines: maxLines,
       validator: validator,
+      onSaved: onSaved,
       decoration: InputDecoration(
         labelText: labelText,
         border: const OutlineInputBorder(),

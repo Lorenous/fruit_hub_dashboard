@@ -28,28 +28,8 @@ class ProductFormFields extends StatelessWidget {
             }
             return null;
           },
-        ),
-        const SizedBox(height: 16),
-        CustomTextField(
-          labelText: 'Product Code',
-          controller: codeController,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a product code';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 16),
-        CustomTextField(
-          labelText: 'Description',
-          controller: descriptionController,
-          maxLines: 3,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a description';
-            }
-            return null;
+          onSaved: (newValue) {
+            nameController.text = newValue!;
           },
         ),
         const SizedBox(height: 16),
@@ -66,6 +46,39 @@ class ProductFormFields extends StatelessWidget {
               return 'Please enter a valid price';
             }
             return null;
+          },
+          onSaved: (newValue) {
+            priceController.text = newValue!;
+          },
+        ),
+        const SizedBox(height: 16),
+        CustomTextField(
+          labelText: 'Product Code',
+          controller: codeController,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a product code';
+            }
+            return null;
+          },
+          onSaved: (newValue) {
+            codeController.text = newValue!;
+          },
+        ),
+
+        const SizedBox(height: 16),
+        CustomTextField(
+          labelText: 'Description',
+          controller: descriptionController,
+          maxLines: 3,
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please enter a description';
+            }
+            return null;
+          },
+          onSaved: (newValue) {
+            descriptionController.text = newValue!;
           },
         ),
       ],

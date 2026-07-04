@@ -35,39 +35,53 @@ class _ImagePickerFieldState extends State<ImagePickerField> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
-        GestureDetector(
-          onTap: _pickImage,
-          child: Container(
-            height: 150,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(8),
+        Stack(
+          children: [
+            GestureDetector(
+              onTap: _pickImage,
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: _imageFile != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          File(_imageFile!.path),
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                    : const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.add_photo_alternate,
+                            size: 48,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Tap to add image',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+              ),
             ),
-            child: _imageFile != null
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.file(
-                      File(_imageFile!.path),
-                      fit: BoxFit.cover,
-                    ),
+            _imageFile != null
+                ? IconButton(
+                    onPressed: () {
+                      _imageFile = null;
+                      setState(() {});
+                      widget.onImageSelected?.call(_imageFile);
+                    },
+                    icon: const Icon(Icons.close),
                   )
-                : const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.add_photo_alternate,
-                        size: 48,
-                        color: Colors.grey,
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Tap to add image',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-          ),
+                : const SizedBox(),
+          ],
         ),
       ],
     );

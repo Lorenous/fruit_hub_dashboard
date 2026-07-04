@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
+import 'package:fruit_hub_dashboard/features/add_product/domain/entities/add_product_input_entity.dart';
 import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/image_picker_field.dart';
+import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/is_featured.dart';
 import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/product_form_fields.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddProductViewBody extends StatefulWidget {
   const AddProductViewBody({super.key});
@@ -16,6 +19,8 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
   final _codeController = TextEditingController();
+  XFile? image;
+  bool isFeatured = false;
 
   @override
   void dispose() {
@@ -47,14 +52,41 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
               codeController: _codeController,
             ),
             const SizedBox(height: 20),
-            const ImagePickerField(),
+            ImagePickerField(
+              onImageSelected: (value) {
+                image = value;
+              },
+            ),
+            const SizedBox(height: 20),
+            IsFeatured(
+              value: isFeatured,
+              onChanged: (value) {
+                setState(() {
+                  isFeatured = value!;
+                });
+              },
+            ),
+
             const SizedBox(height: 20),
             CustomButton(
               text: 'Add Product',
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  // TODO: Implement add product logic
-                  Navigator.of(context).pop(); // Go back to dashboard
+                  if (image == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please select an image')),
+                    );
+                  } else {
+                    AddProductInputEntity(
+                      name: _nameController.text,
+                      code: _codeController.text,
+                      description: _descriptionController.text,
+                      price: _priceController.text,
+                      image: image!,
+                      isFeatured: isFeatured,
+                    );
+                    Navigator.of(context).pop(); // Go back to dashboard
+                  }
                 }
               },
             ),
