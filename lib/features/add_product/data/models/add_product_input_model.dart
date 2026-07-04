@@ -1,3 +1,4 @@
+import 'package:fruit_hub_dashboard/features/add_product/domain/entities/add_product_input_entity.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddProductInputModel {
@@ -5,21 +6,40 @@ class AddProductInputModel {
   final String code;
   final String description;
   final String price;
-  final XFile? image;
+  final XFile image;
+  final bool isFeatured;
+  String? imageUrl;
 
-  const AddProductInputModel({
+  AddProductInputModel({
     required this.name,
     required this.code,
     required this.description,
     required this.price,
-    this.image,
+    required this.image,
+    required this.isFeatured,
+    this.imageUrl,
   });
 
-  Map<String, dynamic> toJson() => {
-        'name': name,
-        'code': code,
-        'description': description,
-        'price': price,
-        'imagePath': image?.path,
-      };
+  factory AddProductInputModel.fromEntity(AddProductInputEntity entity) {
+    return AddProductInputModel(
+      name: entity.name,
+      code: entity.code,
+      description: entity.description,
+      price: entity.price,
+      image: entity.image,
+      isFeatured: entity.isFeatured,
+      imageUrl: entity.imageUrl,
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'code': code,
+      'description': description,
+      'price': price,
+      'image': image.path,
+      'isFeatured': isFeatured,
+      'imageUrl': imageUrl,
+    };
+  }
 }

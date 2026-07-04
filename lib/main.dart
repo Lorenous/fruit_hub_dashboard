@@ -1,12 +1,17 @@
+import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub_dashboard/core/helper_functions/on_generate_route.dart';
+import 'package:fruit_hub_dashboard/core/services/custom_bloc_observer.dart';
+import 'package:fruit_hub_dashboard/core/services/get_it_service.dart';
 import 'package:fruit_hub_dashboard/features/dashboard/presentation/views/dashboard_view.dart';
 import 'package:fruit_hub_dashboard/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Bloc.observer = CustomBlocObserver();
+  getitSetup();
   runApp(const MyApp());
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub_dashboard/core/widgets/custom_button.dart';
 import 'package:fruit_hub_dashboard/features/add_product/domain/entities/add_product_input_entity.dart';
+import 'package:fruit_hub_dashboard/features/add_product/presentation/cubits/add_product_cubit/add_product_cubit.dart';
 import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/image_picker_field.dart';
 import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/is_featured.dart';
 import 'package:fruit_hub_dashboard/features/add_product/presentation/widgets/product_form_fields.dart';
@@ -77,7 +79,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       const SnackBar(content: Text('Please select an image')),
                     );
                   } else {
-                    AddProductInputEntity(
+                    AddProductInputEntity input = AddProductInputEntity(
                       name: _nameController.text,
                       code: _codeController.text,
                       description: _descriptionController.text,
@@ -85,7 +87,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       image: image!,
                       isFeatured: isFeatured,
                     );
-                    Navigator.of(context).pop(); // Go back to dashboard
+                    context.read<AddProductCubit>().addProduct(
+                      addProductInputEntity: input,
+                    );
                   }
                 }
               },

@@ -7,9 +7,9 @@ class AddProductInputEntity {
   final String price;
   final XFile image;
   final bool isFeatured;
-  final String? imageUrl;
+  String? imageUrl;
 
-  const AddProductInputEntity({
+  AddProductInputEntity({
     required this.name,
     required this.code,
     required this.description,
