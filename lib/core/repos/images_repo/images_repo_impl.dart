@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fruit_hub_dashboard/core/errors/exceptions.dart';
 import 'package:fruit_hub_dashboard/core/errors/failures.dart';
 import 'package:fruit_hub_dashboard/core/repos/images_repo/images_repo.dart';
 import 'package:fruit_hub_dashboard/core/services/storage_service.dart';
